@@ -2,6 +2,8 @@
 
 #import "RSCAppDelegate.h"
 #import "RSCGitCloner.h"
+#import "RSCSettings.h"
+
 
 @implementation RSCAppDelegate
 
@@ -9,9 +11,15 @@
 @synthesize cloneURLTextField = _cloneURLTextField;
 @synthesize progressBar = _progressBar;
 @synthesize cloneButton = _cloneButton;
+@synthesize destinationLabel = _destinationLabel;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
+    
+    //
+    // notifications
+    //
     void (^progressReportBlock)(NSNotification *note) = ^(NSNotification *note) {
         [self.progressBar setIndeterminate:NO];
         [self.progressBar setDoubleValue:[note.object doubleValue]];
@@ -74,7 +82,7 @@
 
     NSString *repoURL = self.cloneURLTextField.stringValue;
     NSString *repoName = [[repoURL lastPathComponent] stringByDeletingPathExtension];
-    NSString *destPath = [NSString stringWithFormat:@"/Users/bcooke/Downloads/%@", repoName];
+    NSString *destPath = [NSString stringWithFormat:@"%@/%@", [RSC_SETTINGS destinationPath], repoName];
         
     RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL 
                                                     andDestinationPath:destPath];
@@ -84,6 +92,18 @@
 - (IBAction)cloneViaKeyboard:(id)sender 
 {
     [self clone:self];
+}
+
+- (IBAction)browse:(id)sender 
+{
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    openPanel.canChooseFiles = NO;
+    openPanel.canChooseDirectories = YES;
+    
+    if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
+        RSC_SETTINGS.destinationPath = [[[openPanel URLs] objectAtIndex:0] path];
+        self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
+    }
 }
 
 

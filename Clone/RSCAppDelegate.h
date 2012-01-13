@@ -8,8 +8,10 @@
 @property (weak) IBOutlet NSTextField *cloneURLTextField;
 @property (weak) IBOutlet NSProgressIndicator *progressBar;
 @property (weak) IBOutlet NSButton *cloneButton;
+@property (weak) IBOutlet NSTextField *destinationLabel;
 
 - (IBAction)clone:(id)sender;
 - (IBAction)cloneViaKeyboard:(id)sender;
+- (IBAction)browse:(id)sender;
 
 @end

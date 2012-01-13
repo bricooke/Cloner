@@ -14,6 +14,7 @@
 		D6278D6D14C05B6E00CD37A4 /* RSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6278D6C14C05B6E00CD37A4 /* RSCAppDelegate.m */; };
 		D6278D7014C05B6E00CD37A4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6278D6E14C05B6E00CD37A4 /* MainMenu.xib */; };
 		D6DFC16214C0629700CE3F27 /* RSCGitCloner.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DFC16114C0629700CE3F27 /* RSCGitCloner.m */; };
+		D6DFC16714C0849000CE3F27 /* RSCSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DFC16614C0849000CE3F27 /* RSCSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,9 @@
 		D6DFC16014C0629700CE3F27 /* RSCGitCloner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSCGitCloner.h; path = Models/RSCGitCloner.h; sourceTree = "<group>"; };
 		D6DFC16114C0629700CE3F27 /* RSCGitCloner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSCGitCloner.m; path = Models/RSCGitCloner.m; sourceTree = "<group>"; };
 		D6DFC16314C072F000CE3F27 /* RSCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCConstants.h; sourceTree = "<group>"; };
+		D6DFC16414C0840B00CE3F27 /* Clone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Clone.entitlements; sourceTree = "<group>"; };
+		D6DFC16514C0849000CE3F27 /* RSCSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCSettings.h; sourceTree = "<group>"; };
+		D6DFC16614C0849000CE3F27 /* RSCSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		D6278D5F14C05B6E00CD37A4 /* Clone */ = {
 			isa = PBXGroup;
 			children = (
+				D6DFC16414C0840B00CE3F27 /* Clone.entitlements */,
 				D6278D7C14C05CA100CD37A4 /* Models */,
 				D6278D6B14C05B6E00CD37A4 /* RSCAppDelegate.h */,
 				D6278D6C14C05B6E00CD37A4 /* RSCAppDelegate.m */,
@@ -117,6 +122,8 @@
 				D6278D6714C05B6E00CD37A4 /* Clone-Prefix.pch */,
 				D6278D6814C05B6E00CD37A4 /* Credits.rtf */,
 				D6DFC16314C072F000CE3F27 /* RSCConstants.h */,
+				D6DFC16514C0849000CE3F27 /* RSCSettings.h */,
+				D6DFC16614C0849000CE3F27 /* RSCSettings.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -206,6 +213,7 @@
 				D6278D6614C05B6E00CD37A4 /* main.m in Sources */,
 				D6278D6D14C05B6E00CD37A4 /* RSCAppDelegate.m in Sources */,
 				D6DFC16214C0629700CE3F27 /* RSCGitCloner.m in Sources */,
+				D6DFC16714C0849000CE3F27 /* RSCSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +297,7 @@
 		D6278D7414C05B6E00CD37A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Clone/Clone.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer: Brian Cooke (YDGH36M7CZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
@@ -306,6 +315,7 @@
 		D6278D7514C05B6E00CD37A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Clone/Clone.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer: Brian Cooke (YDGH36M7CZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
