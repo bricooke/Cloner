@@ -69,7 +69,8 @@
     [file waitForDataInBackgroundAndNotify];
     
     task.terminationHandler = ^(NSTask *theTask) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kRSCCloneFinished object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRSCCloneFinished 
+                                                            object:self.destinationPath];
     };
 }
 
