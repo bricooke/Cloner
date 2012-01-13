@@ -44,6 +44,7 @@
 		D6278D6F14C05B6E00CD37A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D6DFC16014C0629700CE3F27 /* RSCGitCloner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSCGitCloner.h; path = Models/RSCGitCloner.h; sourceTree = "<group>"; };
 		D6DFC16114C0629700CE3F27 /* RSCGitCloner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSCGitCloner.m; path = Models/RSCGitCloner.m; sourceTree = "<group>"; };
+		D6DFC16314C072F000CE3F27 /* RSCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +116,7 @@
 				D6278D6514C05B6E00CD37A4 /* main.m */,
 				D6278D6714C05B6E00CD37A4 /* Clone-Prefix.pch */,
 				D6278D6814C05B6E00CD37A4 /* Credits.rtf */,
+				D6DFC16314C072F000CE3F27 /* RSCConstants.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
