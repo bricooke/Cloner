@@ -1,20 +1,19 @@
-//
-//  RSCAppDelegate.m
-//  Clone
-//
-//  Created by Brian Cooke on 1/13/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+
 
 #import "RSCAppDelegate.h"
 
 @implementation RSCAppDelegate
 
 @synthesize window = _window;
+@synthesize cloneURLTextField = _cloneURLTextField;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+}
+
+- (IBAction)clone:(id)sender 
+{
+    NSLog(@"Cloning: %@", self.cloneURLTextField.stringValue);
 }
 
 @end

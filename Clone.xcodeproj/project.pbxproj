@@ -82,6 +82,7 @@
 		D6278D5F14C05B6E00CD37A4 /* Clone */ = {
 			isa = PBXGroup;
 			children = (
+				D6278D7C14C05CA100CD37A4 /* Models */,
 				D6278D6B14C05B6E00CD37A4 /* RSCAppDelegate.h */,
 				D6278D6C14C05B6E00CD37A4 /* RSCAppDelegate.m */,
 				D6278D6E14C05B6E00CD37A4 /* MainMenu.xib */,
@@ -100,6 +101,13 @@
 				D6278D6814C05B6E00CD37A4 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D6278D7C14C05CA100CD37A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +259,7 @@
 		D6278D7414C05B6E00CD37A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer: Brian Cooke (YDGH36M7CZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
 				INFOPLIST_FILE = "Clone/Clone-Info.plist";
@@ -259,6 +268,7 @@
 					"-Werror",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0A82C428-2757-41F5-8424-91F33AAD40A2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -266,6 +276,7 @@
 		D6278D7514C05B6E00CD37A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer: Brian Cooke (YDGH36M7CZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
 				INFOPLIST_FILE = "Clone/Clone-Info.plist";
@@ -274,6 +285,7 @@
 					"-Werror",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0A82C428-2757-41F5-8424-91F33AAD40A2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -297,6 +309,7 @@
 				D6278D7514C05B6E00CD37A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
