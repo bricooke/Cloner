@@ -1,0 +1,9 @@
+*.mode2v3
+*.pbxuser
+ffmpeg
+build
+.DS_Store
+*/*.mode1v3
+xcuserdata
+smc_out
+*.swp

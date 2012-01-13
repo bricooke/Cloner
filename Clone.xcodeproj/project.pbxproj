@@ -21,12 +21,12 @@
 		D6278D5C14C05B6E00CD37A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D6278D5D14C05B6E00CD37A4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D6278D5E14C05B6E00CD37A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D6278D6114C05B6E00CD37A4 /* Clone-Info.plist */ = {isa = PBXFileReference; path = "Clone-Info.plist"; sourceTree = "<group>"; };
+		D6278D6114C05B6E00CD37A4 /* Clone-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Clone-Info.plist"; sourceTree = "<group>"; };
 		D6278D6314C05B6E00CD37A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D6278D6514C05B6E00CD37A4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D6278D6714C05B6E00CD37A4 /* Clone-Prefix.pch */ = {isa = PBXFileReference; path = "Clone-Prefix.pch"; sourceTree = "<group>"; };
+		D6278D6714C05B6E00CD37A4 /* Clone-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Clone-Prefix.pch"; sourceTree = "<group>"; };
 		D6278D6914C05B6E00CD37A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		D6278D6B14C05B6E00CD37A4 /* RSCAppDelegate.h */ = {isa = PBXFileReference; path = RSCAppDelegate.h; sourceTree = "<group>"; };
+		D6278D6B14C05B6E00CD37A4 /* RSCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSCAppDelegate.h; sourceTree = "<group>"; };
 		D6278D6C14C05B6E00CD37A4 /* RSCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSCAppDelegate.m; sourceTree = "<group>"; };
 		D6278D6F14C05B6E00CD37A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +129,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "roobasoft, LLC";
 			};
 			buildConfigurationList = D6278D4F14C05B6E00CD37A4 /* Build configuration list for PBXProject "Clone" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -253,6 +254,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
 				INFOPLIST_FILE = "Clone/Clone-Info.plist";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Werror",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -264,6 +269,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
 				INFOPLIST_FILE = "Clone/Clone-Info.plist";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Werror",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
