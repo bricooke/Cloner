@@ -15,7 +15,11 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
+    if (RSC_SETTINGS.destinationIsDownloads) {
+        self.destinationLabel.stringValue = @"Downloads";
+    } else {
+        self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
+    }
     
     //
     // notifications
@@ -102,6 +106,7 @@
     
     if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
         RSC_SETTINGS.destinationPath = [[[openPanel URLs] objectAtIndex:0] path];
+        RSC_SETTINGS.destinationIsDownloads = NO;
         self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
     }
 }
