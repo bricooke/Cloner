@@ -27,6 +27,12 @@
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(cloneUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 
     
+    // 
+    // drop on dock icon handler
+    //
+    [NSApp setServicesProvider:self];
+    
+    
     //
     // notifications
     //
@@ -124,6 +130,14 @@
     [self clone:self];
 }
 
+
+
+#pragma mark - drop on dock icon handling
+-(void)cloneFromPasteboard:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+    NSString *urlToClone = [pboard stringForType:NSStringPboardType];
+    self.cloneURLTextField.stringValue = urlToClone;
+    [self clone:self];
+}
 
 
 

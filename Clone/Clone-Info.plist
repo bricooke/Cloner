@@ -43,5 +43,21 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSServices</key>
+	<array>
+		<dict>
+			<key>NSSendTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>NSMessage</key>
+			<string>cloneFromPasteboard</string>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>Clone repository with Cloner</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
