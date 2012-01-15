@@ -1,6 +1,7 @@
 
 
 #import "RSCGitCloner.h"
+#import "RSCSettings.h"
 
 @implementation RSCGitCloner
 
@@ -8,21 +9,37 @@
 @synthesize destinationPath = _destinationPath;
 
 
-- (id) initWithRepositoryURL:(NSString *)aRepositoryURL andDestinationPath:(NSString *)aFilePath
+- (id) initWithRepositoryURL:(NSString *)aRepositoryURL
 {
     if ((self = [super init])) {
-        self.repositoryURL      = aRepositoryURL;
-        self.destinationPath    = aFilePath;
+        self.repositoryURL = aRepositoryURL;
     }
     
     return self;
 }
 
 
+- (void) translateRepositoryURLFromGithubURL
+{
+    // 1st, is this necessary?
+    if ([self.repositoryURL rangeOfString:@"https://github.com/"].location == NSNotFound)
+        return;
+    
+    NSArray *comps = [self.repositoryURL pathComponents];
+    if ([comps count] > 4) {
+        self.repositoryURL = [NSString stringWithFormat:@"%@//%@/%@/%@.git", [comps objectAtIndex:0], [comps objectAtIndex:1], [comps objectAtIndex:2], [comps objectAtIndex:3]];
+    }
+}
+
+
 - (void) main
 {
+    [self translateRepositoryURLFromGithubURL];
+    NSString *repoName = [[self.repositoryURL lastPathComponent] stringByDeletingPathExtension];
+    self.destinationPath = [NSString stringWithFormat:@"%@/%@", [RSC_SETTINGS destinationPath], repoName];
+    
     NSLog(@"Cloning %@ to %@", self.repositoryURL, self.destinationPath);
-        
+
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/git";
     task.arguments  = [NSArray arrayWithObjects:@"clone",

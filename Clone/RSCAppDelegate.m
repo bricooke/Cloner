@@ -22,6 +22,12 @@
     }
     
     //
+    // bookmarklet handler
+    //
+    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(cloneUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+
+    
+    //
     // notifications
     //
     void (^progressReportBlock)(NSNotification *note) = ^(NSNotification *note) {
@@ -85,11 +91,8 @@
     [self.progressBar startAnimation:self];
 
     NSString *repoURL = self.cloneURLTextField.stringValue;
-    NSString *repoName = [[repoURL lastPathComponent] stringByDeletingPathExtension];
-    NSString *destPath = [NSString stringWithFormat:@"%@/%@", [RSC_SETTINGS destinationPath], repoName];
         
-    RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL 
-                                                    andDestinationPath:destPath];
+    RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL];
     [[NSOperationQueue mainQueue] addOperation:cloner];
 }
 
@@ -110,6 +113,17 @@
         self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
     }
 }
+
+
+#pragma mark - bookmarklet
+- (void)cloneUrl:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+    NSString *urlAsString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    NSURL *url = [NSURL URLWithString:urlAsString];
+    self.cloneURLTextField.stringValue = [url host];
+    [self clone:self];
+}
+
 
 
 
