@@ -50,7 +50,7 @@
     NSString *repoName = [[self.repositoryURL lastPathComponent] stringByDeletingPathExtension];
     self.destinationPath = [NSString stringWithFormat:@"%@/%@", [RSC_SETTINGS destinationPath], repoName];
     
-    NSLog(@"Cloning %@ to %@", self.repositoryURL, self.destinationPath);
+    DLog(@"Cloning %@ to %@", self.repositoryURL, self.destinationPath);
     
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/git";
@@ -78,7 +78,7 @@
         NSData *readData = [file availableData];
         NSString *response = [[NSString alloc] initWithData:readData encoding:NSUTF8StringEncoding];
         
-        NSLog(@"%@", response);
+        DLog(@"%@", response);
         
         // check for username prompt
         NSUInteger numberOfMatches = [usernameRegex numberOfMatchesInString:response options:0 range:NSMakeRange(0, [response length])];
@@ -87,6 +87,7 @@
             // prompting for username and password - kill the task and prompt the user
             self.didTerminate = YES;
             [task terminate];
+            [task waitUntilExit];
             self.completionBlock(kRSCGitClonerErrorAuthenticationRequired);
             return;
         }

@@ -74,21 +74,21 @@
     RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL];
    
     void (^cloneProgressBlock)(NSInteger progress) = ^(NSInteger progress) {
-        NSLog(@"Progress!: %lu", progress);
+        DLog(@"Progress!: %lu", progress);
         
         [self.progressBar setIndeterminate:NO];
         [self.progressBar setDoubleValue:progress];
     };
     
     void (^cloneCompletionBlock)(NSInteger responseCode) = ^(NSInteger responseCode) {
-        NSLog(@"Completion block...");
+        DLog(@"Completion block...");
         [self.progressBar setDoubleValue:0.0];
         [self.progressBar stopAnimation:self];
         
         if (responseCode == kRSCGitClonerErrorNone) {
             [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath];
         } else if (responseCode == kRSCGitClonerErrorAuthenticationRequired) {
-            NSLog(@"Prompt for username and password!");
+            DLog(@"Prompt for username and password!");
             
             // just nuke the destination path.
             // TODO: Make sure it's empty?
