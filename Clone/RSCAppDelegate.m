@@ -31,32 +31,6 @@
     // drop on dock icon handler
     //
     [NSApp setServicesProvider:self];
-    
-    
-    //
-    // notifications
-    //
-    void (^progressReportBlock)(NSNotification *note) = ^(NSNotification *note) {
-        [self.progressBar setIndeterminate:NO];
-        [self.progressBar setDoubleValue:[note.object doubleValue]];
-    };
-    
-    void (^cloneFinishedBlock)(NSNotification *note) = ^(NSNotification *note) {
-        [self.progressBar setDoubleValue:0.0];
-        [self.progressBar stopAnimation:self];
-        
-        [[NSWorkspace sharedWorkspace] openFile:note.object];
-    };
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kRSCProgressReport
-                                                      object:nil 
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:progressReportBlock];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:kRSCCloneFinished
-                                                      object:nil 
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:cloneFinishedBlock];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
@@ -97,9 +71,38 @@
     [self.progressBar startAnimation:self];
 
     NSString *repoURL = self.cloneURLTextField.stringValue;
-        
     RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL];
-    [[NSOperationQueue mainQueue] addOperation:cloner];
+   
+    void (^cloneProgressBlock)(NSInteger progress) = ^(NSInteger progress) {
+        NSLog(@"Progress!: %lu", progress);
+        
+        [self.progressBar setIndeterminate:NO];
+        [self.progressBar setDoubleValue:progress];
+    };
+    
+    void (^cloneCompletionBlock)(NSInteger responseCode) = ^(NSInteger responseCode) {
+        NSLog(@"Completion block...");
+        [self.progressBar setDoubleValue:0.0];
+        [self.progressBar stopAnimation:self];
+        
+        if (responseCode == kRSCGitClonerErrorNone) {
+            [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath];
+        } else if (responseCode == kRSCGitClonerErrorAuthenticationRequired) {
+            NSLog(@"Prompt for username and password!");
+            
+            // just nuke the destination path.
+            // TODO: Make sure it's empty?
+            NSError *error = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:cloner.destinationPath error:&error];
+
+            // try again with username and password set in the URL
+            // TODO: Ask for the username and password.
+            cloner.repositoryURL = @"https://USERNAME:PASSWORD@github...";
+            [cloner clone];
+        }
+    };    
+    
+    [cloner cloneWithProgressBlock:cloneProgressBlock andCompletionBlock:cloneCompletionBlock];
 }
 
 - (IBAction)cloneViaKeyboard:(id)sender 

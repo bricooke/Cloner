@@ -7,12 +7,16 @@
 
 @synthesize repositoryURL   = _repositoryURL;
 @synthesize destinationPath = _destinationPath;
+@synthesize didTerminate = _didTerminate;
+@synthesize progressBlock = _progressBlock;
+@synthesize completionBlock = _completionBlock;
 
 
 - (id) initWithRepositoryURL:(NSString *)aRepositoryURL
 {
     if ((self = [super init])) {
         self.repositoryURL = aRepositoryURL;
+        self.didTerminate = NO;
     }
     
     return self;
@@ -32,14 +36,22 @@
 }
 
 
-- (void) main
+- (void) cloneWithProgressBlock:(RSCCloneBlock)aProgressBlock andCompletionBlock:(RSCCloneBlock)aCompletionBlock
 {
+    self.progressBlock = aProgressBlock;
+    self.completionBlock = aCompletionBlock;
+    [self clone];
+}
+
+- (void) clone 
+{
+    self.didTerminate = NO;
     [self translateRepositoryURLFromGithubURL];
     NSString *repoName = [[self.repositoryURL lastPathComponent] stringByDeletingPathExtension];
     self.destinationPath = [NSString stringWithFormat:@"%@/%@", [RSC_SETTINGS destinationPath], repoName];
     
     NSLog(@"Cloning %@ to %@", self.repositoryURL, self.destinationPath);
-
+    
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/git";
     task.arguments  = [NSArray arrayWithObjects:@"clone",
@@ -51,27 +63,44 @@
     NSPipe *pipe = [NSPipe pipe];
     [task setStandardError:pipe];
     
-    [task launch];
+    NSFileHandle *file = [pipe fileHandleForReading];
     
-    NSFileHandle *file  = [pipe fileHandleForReading];
+    [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
+    
+    [task launch];    
+
+    NSError *error = nil;
+    NSRegularExpression *usernameRegex = [NSRegularExpression regularExpressionWithPattern:@"Username:" options:0 error:&error];
+    NSRegularExpression *progressRegex = [NSRegularExpression regularExpressionWithPattern:@"Receiving objects:\\s*(\\d+)%" options:NSRegularExpressionCaseInsensitive error:&error];
+
     // process stdout when ready
     void (^dataReadyBlock)(NSNotification *note) = ^(NSNotification *note) {
         NSData *readData = [file availableData];
         NSString *response = [[NSString alloc] initWithData:readData encoding:NSUTF8StringEncoding];
         
-        NSError *error = nil;
-        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"Receiving objects:\\s*(\\d+)%"
-                                                                          options:NSRegularExpressionCaseInsensitive
-                                                                            error:&error];
+        NSLog(@"%@", response);
         
-        NSArray *matches = [regex matchesInString:response options:0 range:NSMakeRange(0, [response length])];
+        // check for username prompt
+        NSUInteger numberOfMatches = [usernameRegex numberOfMatchesInString:response options:0 range:NSMakeRange(0, [response length])];
+        
+        if (numberOfMatches > 0) {
+            // prompting for username and password - kill the task and prompt the user
+            self.didTerminate = YES;
+            [task terminate];
+            self.completionBlock(kRSCGitClonerErrorAuthenticationRequired);
+            return;
+        }
+        
+        // check for progress
+        NSArray *matches = [progressRegex matchesInString:response options:0 range:NSMakeRange(0, [response length])];
         NSTextCheckingResult *result = [matches lastObject];
         
         if (result) {
             NSString *reportAsString = [response substringWithRange:[result rangeAtIndex:1]]; // match '1' will be the (\\d)
-            NSNumber *progress = [NSNumber numberWithInteger:[reportAsString integerValue]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kRSCProgressReport object:progress];
+            NSInteger progress = [reportAsString integerValue];
+            self.progressBlock(progress);
         }
+        
         
         if ([task isRunning]) {
             [file waitForDataInBackgroundAndNotify];
@@ -86,8 +115,9 @@
     [file waitForDataInBackgroundAndNotify];
     
     task.terminationHandler = ^(NSTask *theTask) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kRSCCloneFinished 
-                                                            object:self.destinationPath];
+        if (self.didTerminate == NO) {
+            self.completionBlock(kRSCGitClonerErrorNone);
+        }
     };
 }
 
