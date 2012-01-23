@@ -9,6 +9,7 @@
 @property (weak) IBOutlet NSProgressIndicator *progressBar;
 @property (weak) IBOutlet NSButton *cloneButton;
 @property (weak) IBOutlet NSTextField *destinationLabel;
+@property (nonatomic, assign) BOOL cloneOnActivate;
 
 - (IBAction)clone:(id)sender;
 - (IBAction)cloneViaKeyboard:(id)sender;

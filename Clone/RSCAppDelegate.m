@@ -12,20 +12,15 @@
 @synthesize progressBar = _progressBar;
 @synthesize cloneButton = _cloneButton;
 @synthesize destinationLabel = _destinationLabel;
+@synthesize cloneOnActivate = _cloneOnActivate;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
-    if (RSC_SETTINGS.destinationIsDownloads) {
-        self.destinationLabel.stringValue = @"Downloads";
-    } else {
-        self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
-    }
-    
     //
     // bookmarklet handler
     //
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(cloneUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-
+    
     
     // 
     // drop on dock icon handler
@@ -33,8 +28,24 @@
     [NSApp setServicesProvider:self];
 }
 
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{    
+    if (RSC_SETTINGS.destinationIsDownloads) {
+        self.destinationLabel.stringValue = @"Downloads";
+    } else {
+        self.destinationLabel.stringValue = RSC_SETTINGS.destinationPath;
+    }
+}
+
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
+    if (self.cloneOnActivate) {
+        // don't interrupt it!
+        self.cloneOnActivate = NO;
+        return;
+    }
+    
     NSArray *classes        = [[NSArray alloc] initWithObjects:[NSString class], nil];
     NSDictionary *options   = [NSDictionary dictionary];
     NSArray *copiedItems    = [[NSPasteboard generalPasteboard] readObjectsForClasses:classes options:options];
@@ -86,7 +97,7 @@
         [self.progressBar stopAnimation:self];
         
         if (responseCode == kRSCGitClonerErrorNone) {
-            [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath];
+            [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath withApplication:@"Finder"];
         } else if (responseCode == kRSCGitClonerErrorAuthenticationRequired) {
             DLog(@"Prompt for username and password!");
             
@@ -115,6 +126,7 @@
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     openPanel.canChooseFiles = NO;
     openPanel.canChooseDirectories = YES;
+    openPanel.canCreateDirectories = YES;
     
     if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
         RSC_SETTINGS.destinationPath = [[[openPanel URLs] objectAtIndex:0] path];
@@ -127,6 +139,8 @@
 #pragma mark - bookmarklet
 - (void)cloneUrl:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
+    self.cloneOnActivate = YES;
+    
     NSString *urlAsString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
     NSURL *url = [NSURL URLWithString:urlAsString];
     self.cloneURLTextField.stringValue = [url host];
@@ -136,7 +150,10 @@
 
 
 #pragma mark - drop on dock icon handling
--(void)cloneFromPasteboard:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+-(void)cloneFromPasteboard:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error 
+{
+    self.cloneOnActivate = YES;
+    
     NSString *urlToClone = [pboard stringForType:NSStringPboardType];
     self.cloneURLTextField.stringValue = urlToClone;
     [self clone:self];
