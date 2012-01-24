@@ -47,7 +47,6 @@
 		D671529214CD9CB90012024C /* DLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLog.h; sourceTree = "<group>"; };
 		D671529314CD9CB90012024C /* NSDate+Format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Format.h"; sourceTree = "<group>"; };
 		D671529414CD9CB90012024C /* NSDate+Format.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Format.m"; sourceTree = "<group>"; };
-		D6C7609614C31B2C00D4C259 /* Cloner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Cloner.entitlements; sourceTree = "<group>"; };
 		D6DFC16014C0629700CE3F27 /* RSCGitCloner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSCGitCloner.h; path = Models/RSCGitCloner.h; sourceTree = "<group>"; };
 		D6DFC16114C0629700CE3F27 /* RSCGitCloner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSCGitCloner.m; path = Models/RSCGitCloner.m; sourceTree = "<group>"; };
 		D6DFC16314C072F000CE3F27 /* RSCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSCConstants.h; sourceTree = "<group>"; };
@@ -70,7 +69,6 @@
 		D6278D4A14C05B6E00CD37A4 = {
 			isa = PBXGroup;
 			children = (
-				D6C7609614C31B2C00D4C259 /* Cloner.entitlements */,
 				D6DFC14914C05EF600CE3F27 /* Ext */,
 				D6278D5F14C05B6E00CD37A4 /* Clone */,
 				D6278D5814C05B6E00CD37A4 /* Frameworks */,
@@ -313,7 +311,6 @@
 		D6278D7414C05B6E00CD37A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Cloner.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer: Brian Cooke (YDGH36M7CZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
@@ -331,7 +328,6 @@
 		D6278D7514C05B6E00CD37A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Cloner.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer: Brian Cooke (YDGH36M7CZ)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
