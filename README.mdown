@@ -2,9 +2,9 @@
 
 Simple OS X app to allow cloning github repositories via a bookmarklet or dragging and dropping a URL to the dock icon.
 
-For bookmarklet, see [bookmarklet.html](https://github.com/bricooke/Cloner/blob/master/bookmarklet.html)
+For bookmarklet, see the very ugly interwebsite at [http://getcloning.com](http://getcloning.com)
 
-You can download a pre-built binary at [http://getcloning.com](http://getcloning.com).
+You can also download a pre-built binary at [http://getcloning.com](http://getcloning.com).
 
 To use:
 * Go to a github URL
