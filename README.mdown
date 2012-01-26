@@ -4,6 +4,18 @@ Simple OS X app to allow cloning github repositories via a bookmarklet or draggi
 
 For bookmarklet, see [bookmarklet.html](https://github.com/bricooke/Cloner/blob/master/bookmarklet.html)
 
+You can download a pre-built binary at [http://getcloning.com](http://getcloning.com).
+
+To use:
+* Go to a github URL
+* Invoke the bookmarklet or drag the URL to the Cloner dock icon (if running)
+
+By default, the repo will be cloned into your downloads folder. You can change this by choosing a new default destination in Cloner | Preferences.
+
+### Why?
+
+At least weekly, I clone a repository just to run the example app or grab a single file or something else like that. I don't really want the repo long term, I just want to clone it, run or grab what I want, and get rid of it. So I wrote this to improve that workflow. Someone else might like it too. If you do, please give me a high five on [twitter](http://twitter.com/bricooke).
+
 ### TODO
 * Commission an icon and possibly a proper website.
 * Add support for prompting for username/password for protected URLs
