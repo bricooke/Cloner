@@ -2,7 +2,7 @@
 
 Simple OS X app to allow cloning github repositories via a bookmarklet.
 
-[Clone Repo]("javascript:document.location.href='x-com-roobasoft-cloner-cloneurl://'+encodeURIComponent(location.href);")
+[Clone Repo](javascript:document.location.href='x-com-roobasoft-cloner-cloneurl://'+encodeURIComponent(location.href\);)
 
 ### TODO
 * Commission an icon and possibly a proper website.
