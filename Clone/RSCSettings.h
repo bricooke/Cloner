@@ -5,5 +5,5 @@
 
 @interface RSCSettings : NSObject
 @property (nonatomic, assign) NSString *destinationPath;
-@property (nonatomic, assign) BOOL      destinationIsDownloads;
+@property (nonatomic, assign) BOOL isFirstLaunch;
 @end

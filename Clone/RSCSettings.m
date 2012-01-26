@@ -4,7 +4,7 @@
 
 #define USER_DEFAULTS ([NSUserDefaults standardUserDefaults])
 #define kRSCDestinationPathSetting (@"RSCDestinationPathSetting")
-#define kRSCDestinationIsDownloads (@"RSCDestinationIsDownloads")
+#define kRSCIsFirstLaunchSetting   (@"RSCIsFirstLaunchSetting")
 
 @implementation RSCSettings
 
@@ -15,7 +15,7 @@
     NSString *downloadDir = [[[NSFileManager defaultManager] URLForDirectory:NSDownloadsDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error] path];
     [USER_DEFAULTS registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                                      downloadDir, kRSCDestinationPathSetting,
-                                     [NSNumber numberWithBool:YES], kRSCDestinationIsDownloads,
+                                     [NSNumber numberWithBool:YES], kRSCIsFirstLaunchSetting,
                                      nil]];
 }
 
@@ -27,16 +27,19 @@
 - (void) setDestinationPath:(NSString *)destinationPath
 {
     [USER_DEFAULTS setObject:destinationPath forKey:kRSCDestinationPathSetting];
+    [USER_DEFAULTS synchronize];
 }
 
-- (BOOL) destinationIsDownloads
+- (BOOL) isFirstLaunch
 {
-    return [USER_DEFAULTS boolForKey:kRSCDestinationIsDownloads];
+    return [USER_DEFAULTS boolForKey:kRSCIsFirstLaunchSetting];
 }
 
-- (void) setDestinationIsDownloads:(BOOL)destinationIsDownloads
+- (void) setIsFirstLaunch:(BOOL)isFirstLaunch
 {
-    [USER_DEFAULTS setBool:destinationIsDownloads forKey:kRSCDestinationIsDownloads];
+    [USER_DEFAULTS setBool:isFirstLaunch forKey:kRSCIsFirstLaunchSetting];
+    [USER_DEFAULTS synchronize];
 }
+
 
 @end

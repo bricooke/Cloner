@@ -3,10 +3,13 @@
 #import "RSCAppDelegate.h"
 #import "RSCGitCloner.h"
 #import "RSCSettings.h"
+#import "RSCPreferencesController.h"
 
 
 @implementation RSCAppDelegate
 @synthesize progressIndicator;
+@synthesize preferencesController = _preferencesController;
+
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
@@ -30,6 +33,14 @@
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
 }
+
+
+#pragma mark - actions
+- (IBAction)showPreferences:(id)sender 
+{
+    [NSBundle loadNibNamed:@"RSCPreferencesView" owner:self.preferencesController];
+}
+
 
 
 - (void)cloneUrl:(NSString *)repoURL
@@ -62,8 +73,8 @@
 
             // try again with username and password set in the URL
             // TODO: Ask for the username and password.
-            cloner.repositoryURL = @"https://USERNAME:PASSWORD@github...";
-            [cloner clone];
+            // cloner.repositoryURL = @"https://USERNAME:PASSWORD@github...";
+            // [cloner clone];
         }
     };    
     
@@ -88,6 +99,17 @@
     [self cloneUrl:urlToClone];
 }
 
+
+#pragma mark - getter
+- (RSCPreferencesController *)preferencesController
+{
+    if (_preferencesController != nil) {
+        return _preferencesController;
+    }
+    
+    _preferencesController = [[RSCPreferencesController alloc] init];
+    return _preferencesController;
+}
 
 
 @end
