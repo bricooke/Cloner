@@ -7,6 +7,7 @@ For bookmarklet, see the very ugly interwebsite at [http://getcloning.com](http:
 You can also download a pre-built binary at [http://getcloning.com](http://getcloning.com).
 
 To use:
+
 * Go to a github URL
 * Invoke the bookmarklet or drag the URL to the Cloner dock icon (if running)
 
