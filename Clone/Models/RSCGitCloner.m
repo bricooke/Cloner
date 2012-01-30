@@ -117,7 +117,7 @@
     
     task.terminationHandler = ^(NSTask *theTask) {
         if (self.didTerminate == NO) {
-            self.completionBlock(kRSCGitClonerErrorNone);
+            self.completionBlock(theTask.terminationStatus == 0 ? kRSCGitClonerErrorNone : kRSCGitClonerErrorCloning);
         }
     };
 }

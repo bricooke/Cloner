@@ -3,7 +3,8 @@
 
 typedef enum {
     kRSCGitClonerErrorNone = 0,
-    kRSCGitClonerErrorAuthenticationRequired
+    kRSCGitClonerErrorAuthenticationRequired,
+    kRSCGitClonerErrorCloning
 } kRSCGitClonerErrors;
 
 typedef void (^RSCCloneBlock)(NSInteger);

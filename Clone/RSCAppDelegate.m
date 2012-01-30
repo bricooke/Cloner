@@ -47,6 +47,9 @@
 {
     DLog(@"Cloning: %@", repoURL);
     
+    [self.progressIndicator setIndeterminate:YES];
+    [self.progressIndicator startAnimation:self];
+    
     RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL];
    
     void (^cloneProgressBlock)(NSInteger progress) = ^(NSInteger progress) {
@@ -65,6 +68,10 @@
             [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath withApplication:@"Finder"];
             
             // we no longer have a reason to live. We'll be called upon again by the bookmarklet when needed.
+            [NSApp terminate:self];
+        } else if (responseCode == kRSCGitClonerErrorCloning) {
+            NSAlert *alert = [NSAlert alertWithMessageText:@"Unable to clone" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"git clone %@ failed.\n\nMake sure you were on a valid github URL and try again.", cloner.repositoryURL];
+            [alert runModal];
             [NSApp terminate:self];
         } else if (responseCode == kRSCGitClonerErrorAuthenticationRequired) {
             DLog(@"Prompt for username and password!");
