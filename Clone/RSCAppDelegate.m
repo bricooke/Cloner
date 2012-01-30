@@ -63,6 +63,9 @@
         
         if (responseCode == kRSCGitClonerErrorNone) {
             [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath withApplication:@"Finder"];
+            
+            // we no longer have a reason to live. We'll be called upon again by the bookmarklet when needed.
+            [NSApp terminate:self];
         } else if (responseCode == kRSCGitClonerErrorAuthenticationRequired) {
             DLog(@"Prompt for username and password!");
             
