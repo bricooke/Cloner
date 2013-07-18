@@ -1,44 +1,73 @@
 
-
 #import "RSCSettings.h"
 
-#define USER_DEFAULTS ([NSUserDefaults standardUserDefaults])
-#define kRSCDestinationPathSetting (@"RSCDestinationPathSetting")
-#define kRSCIsFirstLaunchSetting   (@"RSCIsFirstLaunchSetting")
+static NSString *kRSCDestinationPathSetting = @"RSCDestinationPathSetting";
+static NSString *kRSCIsFirstLaunchSetting   = @"RSCIsFirstLaunchSetting";
 
 @implementation RSCSettings
+
+#pragma mark - Class methods
 
 + (void) initialize
 {
     NSError *error = nil;
-                  
+
     NSString *downloadDir = [[[NSFileManager defaultManager] URLForDirectory:NSDownloadsDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error] path];
-    [USER_DEFAULTS registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-                                     downloadDir, kRSCDestinationPathSetting,
-                                     [NSNumber numberWithBool:YES], kRSCIsFirstLaunchSetting,
-                                     nil]];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                             downloadDir, kRSCDestinationPathSetting,
+                                                             [NSNumber numberWithBool:YES], kRSCIsFirstLaunchSetting,
+                                                             nil]];
 }
+
++ (RSCSettings *)sharedSettings
+{
+    static RSCSettings *_instance = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[RSCSettings alloc] init];
+    });
+
+    return _instance;
+}
+
+#pragma mark - Methods
 
 - (NSString *)destinationPath
 {
-    return [USER_DEFAULTS objectForKey:kRSCDestinationPathSetting];
-}
-
-- (void) setDestinationPath:(NSString *)destinationPath
-{
-    [USER_DEFAULTS setObject:destinationPath forKey:kRSCDestinationPathSetting];
-    [USER_DEFAULTS synchronize];
+    return [self.userDefaults objectForKey:kRSCDestinationPathSetting];
 }
 
 - (BOOL) isFirstLaunch
 {
-    return [USER_DEFAULTS boolForKey:kRSCIsFirstLaunchSetting];
+    return [self.userDefaults boolForKey:kRSCIsFirstLaunchSetting];
+}
+
+- (void)setBool:(BOOL)aBool forKey:(NSString *)key
+{
+    [self.userDefaults setBool:aBool forKey:key];
+    [self.userDefaults synchronize];
+}
+
+- (void) setDestinationPath:(NSString *)destinationPath
+{
+    [self setValue:destinationPath forKey:kRSCDestinationPathSetting];
 }
 
 - (void) setIsFirstLaunch:(BOOL)isFirstLaunch
 {
-    [USER_DEFAULTS setBool:isFirstLaunch forKey:kRSCIsFirstLaunchSetting];
-    [USER_DEFAULTS synchronize];
+    [self setBool:isFirstLaunch forKey:kRSCIsFirstLaunchSetting];
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key
+{
+    [self.userDefaults setValue:value forKey:key];
+    [self.userDefaults synchronize];
+}
+
+- (NSUserDefaults *)userDefaults
+{
+    return [NSUserDefaults standardUserDefaults];
 }
 
 

@@ -1,47 +1,23 @@
-
-
 #import "RSCAppDelegate.h"
 #import "RSCGitCloner.h"
 #import "RSCSettings.h"
 #import "RSCPreferencesController.h"
 
-
 @implementation RSCAppDelegate
-@synthesize progressIndicator;
-@synthesize preferencesController = _preferencesController;
-
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
 {
-    //
     // bookmarklet handler
-    //
+
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(cloneUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
     
     
-    // 
     // drop on dock icon handler
-    //
+
     [NSApp setServicesProvider:self];
 }
 
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{    
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
-}
-
-
-#pragma mark - actions
-- (IBAction)showPreferences:(id)sender 
-{
-    [NSBundle loadNibNamed:@"RSCPreferencesView" owner:self.preferencesController];
-}
-
-
+#pragma mark - Methods
 
 - (void)cloneUrl:(NSString *)repoURL
 {
@@ -52,14 +28,14 @@
     
     RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL];
    
-    void (^cloneProgressBlock)(NSInteger progress) = ^(NSInteger progress) {
+    RSCCloneProgressBlock cloneProgressBlock = ^(NSInteger progress) {
         DLog(@"Progress!: %lu", progress);
         
         [self.progressIndicator setIndeterminate:NO];
         [self.progressIndicator setDoubleValue:progress];
     };
     
-    void (^cloneCompletionBlock)(NSInteger responseCode) = ^(NSInteger responseCode) {
+    RSCCloneCompletionBlock cloneCompletionBlock = ^(kRSCGitClonerErrors responseCode) {
         DLog(@"Completion block...");
         [self.progressIndicator setDoubleValue:0.0];
         [self.progressIndicator stopAnimation:self];
@@ -88,11 +64,15 @@
         }
     };    
     
-    [cloner cloneWithProgressBlock:cloneProgressBlock andCompletionBlock:cloneCompletionBlock];
+    [cloner cloneWithProgressBlock:cloneProgressBlock completionBlock:cloneCompletionBlock];
 }
 
+-(void)cloneFromPasteboard:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error
+{
+    NSString *urlToClone = [pboard stringForType:NSStringPboardType];
+    [self cloneUrl:urlToClone];
+}
 
-#pragma mark - bookmarklet
 - (void)cloneUrl:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
     NSString *urlAsString = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
@@ -100,26 +80,19 @@
     [self cloneUrl:[url host]];
 }
 
-
-
-#pragma mark - drop on dock icon handling
--(void)cloneFromPasteboard:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error 
-{
-    NSString *urlToClone = [pboard stringForType:NSStringPboardType];
-    [self cloneUrl:urlToClone];
-}
-
-
-#pragma mark - getter
 - (RSCPreferencesController *)preferencesController
 {
     if (_preferencesController != nil) {
         return _preferencesController;
     }
-    
+
     _preferencesController = [[RSCPreferencesController alloc] init];
     return _preferencesController;
 }
 
+- (IBAction)showPreferences:(id)sender
+{
+    [NSBundle loadNibNamed:@"RSCPreferencesView" owner:self.preferencesController];
+}
 
 @end

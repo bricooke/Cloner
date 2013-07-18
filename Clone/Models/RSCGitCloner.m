@@ -1,18 +1,11 @@
-
-
 #import "RSCGitCloner.h"
 #import "RSCSettings.h"
 
 @implementation RSCGitCloner
 
-@synthesize repositoryURL   = _repositoryURL;
-@synthesize destinationPath = _destinationPath;
-@synthesize didTerminate = _didTerminate;
-@synthesize progressBlock = _progressBlock;
-@synthesize completionBlock = _completionBlock;
+#pragma mark - Lifecycle
 
-
-- (id) initWithRepositoryURL:(NSString *)aRepositoryURL
+- (id)initWithRepositoryURL:(NSString *)aRepositoryURL
 {
     if ((self = [super init])) {
         self.repositoryURL = aRepositoryURL;
@@ -22,33 +15,14 @@
     return self;
 }
 
+#pragma mark - Methods
 
-- (void) translateRepositoryURLFromGithubURL
-{
-    // 1st, is this necessary?
-    if ([self.repositoryURL rangeOfString:@"https://github.com/"].location == NSNotFound)
-        return;
-    
-    NSArray *comps = [self.repositoryURL pathComponents];
-    if ([comps count] > 4) {
-        self.repositoryURL = [NSString stringWithFormat:@"%@//%@/%@/%@.git", [comps objectAtIndex:0], [comps objectAtIndex:1], [comps objectAtIndex:2], [comps objectAtIndex:3]];
-    }
-}
-
-
-- (void) cloneWithProgressBlock:(RSCCloneBlock)aProgressBlock andCompletionBlock:(RSCCloneBlock)aCompletionBlock
-{
-    self.progressBlock = aProgressBlock;
-    self.completionBlock = aCompletionBlock;
-    [self clone];
-}
-
-- (void) clone 
+- (void)clone
 {
     self.didTerminate = NO;
     [self translateRepositoryURLFromGithubURL];
     NSString *repoName = [[self.repositoryURL lastPathComponent] stringByDeletingPathExtension];
-    self.destinationPath = [NSString stringWithFormat:@"%@/%@", [RSC_SETTINGS destinationPath], repoName];
+    self.destinationPath = [NSString stringWithFormat:@"%@/%@", [[RSCSettings sharedSettings] destinationPath], repoName];
     
     DLog(@"Cloning %@ to %@", self.repositoryURL, self.destinationPath);
     
@@ -120,6 +94,26 @@
             self.completionBlock(theTask.terminationStatus == 0 ? kRSCGitClonerErrorNone : kRSCGitClonerErrorCloning);
         }
     };
+}
+
+- (void)cloneWithProgressBlock:(RSCCloneProgressBlock)aProgressBlock completionBlock:(RSCCloneCompletionBlock)aCompletionBlock
+{
+    self.progressBlock = aProgressBlock;
+    self.completionBlock = aCompletionBlock;
+
+    [self clone];
+}
+
+- (void)translateRepositoryURLFromGithubURL
+{
+    // 1st, is this necessary?
+    if ([self.repositoryURL rangeOfString:@"https://github.com/"].location == NSNotFound)
+        return;
+
+    NSArray *comps = [self.repositoryURL pathComponents];
+    if ([comps count] > 4) {
+        self.repositoryURL = [NSString stringWithFormat:@"%@//%@/%@/%@.git", [comps objectAtIndex:0], [comps objectAtIndex:1], [comps objectAtIndex:2], [comps objectAtIndex:3]];
+    }
 }
 
 @end

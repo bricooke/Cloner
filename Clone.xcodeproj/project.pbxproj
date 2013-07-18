@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0E913217981361007045AE /* RSCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E913117981361007045AE /* RSCConstants.m */; };
 		D6278D5A14C05B6E00CD37A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6278D5914C05B6E00CD37A4 /* Cocoa.framework */; };
 		D6278D6414C05B6E00CD37A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6278D6214C05B6E00CD37A4 /* InfoPlist.strings */; };
 		D6278D6614C05B6E00CD37A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6278D6514C05B6E00CD37A4 /* main.m */; };
@@ -33,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C0E913117981361007045AE /* RSCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCConstants.m; sourceTree = "<group>"; };
 		D6278D5514C05B6E00CD37A4 /* Cloner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6278D5914C05B6E00CD37A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D6278D5C14C05B6E00CD37A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -125,11 +127,12 @@
 			isa = PBXGroup;
 			children = (
 				D6278D6114C05B6E00CD37A4 /* Clone-Info.plist */,
-				D6278D6214C05B6E00CD37A4 /* InfoPlist.strings */,
-				D6278D6514C05B6E00CD37A4 /* main.m */,
 				D6278D6714C05B6E00CD37A4 /* Clone-Prefix.pch */,
 				D6278D6814C05B6E00CD37A4 /* Credits.rtf */,
+				D6278D6214C05B6E00CD37A4 /* InfoPlist.strings */,
+				D6278D6514C05B6E00CD37A4 /* main.m */,
 				D6DFC16314C072F000CE3F27 /* RSCConstants.h */,
+				5C0E913117981361007045AE /* RSCConstants.m */,
 				D6DFC16514C0849000CE3F27 /* RSCSettings.h */,
 				D6DFC16614C0849000CE3F27 /* RSCSettings.m */,
 			);
@@ -201,7 +204,7 @@
 		D6278D4C14C05B6E00CD37A4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "roobasoft, LLC";
 			};
 			buildConfigurationList = D6278D4F14C05B6E00CD37A4 /* Build configuration list for PBXProject "Clone" */;
@@ -240,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C0E913217981361007045AE /* RSCConstants.m in Sources */,
 				D6278D6614C05B6E00CD37A4 /* main.m in Sources */,
 				D6278D6D14C05B6E00CD37A4 /* RSCAppDelegate.m in Sources */,
 				D6DFC16214C0629700CE3F27 /* RSCGitCloner.m in Sources */,
@@ -283,8 +287,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -299,6 +308,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -310,8 +322,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -320,6 +337,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
@@ -330,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
 				INFOPLIST_FILE = "Clone/Clone-Info.plist";
@@ -346,6 +367,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Clone/Clone-Prefix.pch";
 				INFOPLIST_FILE = "Clone/Clone-Info.plist";
