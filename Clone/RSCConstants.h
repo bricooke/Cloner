@@ -1,6 +1,6 @@
 //
 // notifications
 //
-#define kRSCProgressReport (@"RSCProgressReport")
-#define kRSCCloneFinished  (@"RSCCloneFinished")
+extern NSString *kRSCProgressReport;
+extern NSString *kRSCCloneFinished;
 

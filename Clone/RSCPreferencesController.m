@@ -1,16 +1,11 @@
-
-
 #import "RSCPreferencesController.h"
 #import "RSCSettings.h"
 
-
 @implementation RSCPreferencesController
-@synthesize window;
-@synthesize pathControl;
 
 - (void) awakeFromNib
 {
-    [self.pathControl setURL:[NSURL fileURLWithPath:RSC_SETTINGS.destinationPath]];
+    [self.pathControl setURL:[NSURL fileURLWithPath:[RSCSettings sharedSettings].destinationPath]];
     
     [self.window makeKeyAndOrderFront:self];
 }
@@ -23,8 +18,8 @@
     openPanel.canCreateDirectories = YES;
     
     if ([openPanel runModal] == NSFileHandlingPanelOKButton) {
-        RSC_SETTINGS.destinationPath = [[[openPanel URLs] objectAtIndex:0] path];
-        [self.pathControl setURL:[NSURL fileURLWithPath:RSC_SETTINGS.destinationPath]];
+        [RSCSettings sharedSettings].destinationPath = [[[openPanel URLs] objectAtIndex:0] path];
+        [self.pathControl setURL:[NSURL fileURLWithPath:[RSCSettings sharedSettings].destinationPath]];
     }
 }
 
