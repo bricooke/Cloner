@@ -1,6 +1,15 @@
 #import "RSCGitCloner.h"
 #import "RSCSettings.h"
 
+@interface RSCGitCloner()
+
+@property(nonatomic,strong) NSString *branch;
+@property(nonatomic,copy) RSCCloneCompletionBlock completionBlock;
+@property(nonatomic,assign) BOOL didTerminate;
+@property(nonatomic,copy) RSCCloneProgressBlock progressBlock;
+
+@end
+
 @implementation RSCGitCloner
 
 #pragma mark - Lifecycle
@@ -17,6 +26,22 @@
 
 #pragma mark - Methods
 
+- (void)checkoutBranch
+{
+    NSTask *task = [[NSTask alloc] init];
+    task.currentDirectoryPath = self.destinationPath;
+    task.launchPath = @"/usr/bin/git";
+    task.arguments  = @[ @"checkout", self.branch];
+
+    [task setStandardError:[NSFileHandle fileHandleWithNullDevice]];
+    [task setStandardOutput:[NSFileHandle fileHandleWithNullDevice]];
+    [task setStandardInput:[NSFileHandle fileHandleWithNullDevice]];
+
+    [task launch];
+
+    [task waitUntilExit];
+}
+
 - (void)clone
 {
     self.didTerminate = NO;
@@ -28,11 +53,7 @@
     
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/git";
-    task.arguments  = [NSArray arrayWithObjects:@"clone",
-                       @"--progress",
-                       self.repositoryURL,
-                       self.destinationPath, 
-                       nil];
+    task.arguments  = @[ @"clone", @"--progress", self.repositoryURL, self.destinationPath ];
     
     NSPipe *pipe = [NSPipe pipe];
     [task setStandardError:pipe];
@@ -91,6 +112,12 @@
     
     task.terminationHandler = ^(NSTask *theTask) {
         if (self.didTerminate == NO) {
+            if (theTask.terminationStatus == 0 && self.branch) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self checkoutBranch];
+                });
+            }
+
             self.completionBlock(theTask.terminationStatus == 0 ? kRSCGitClonerErrorNone : kRSCGitClonerErrorCloning);
         }
     };
@@ -111,8 +138,14 @@
         return;
 
     NSArray *comps = [self.repositoryURL pathComponents];
-    if ([comps count] > 4) {
-        self.repositoryURL = [NSString stringWithFormat:@"%@//%@/%@/%@.git", [comps objectAtIndex:0], [comps objectAtIndex:1], [comps objectAtIndex:2], [comps objectAtIndex:3]];
+    if (comps.count > 4) {
+        self.repositoryURL = [NSString stringWithFormat:@"%@//%@.git", comps[0], [[comps subarrayWithRange:NSMakeRange(1, 3)] componentsJoinedByString:@"/"]];
+    }
+
+    if (comps.count >= 6) {
+        if ([comps[4] isEqualToString:@"tree"]) {
+            self.branch = comps[5];
+        }
     }
 }
 
