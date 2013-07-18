@@ -14,9 +14,6 @@ typedef void (^RSCCloneCompletionBlock)(kRSCGitClonerErrors);
 
 @property (nonatomic,strong) NSString *repositoryURL;
 @property (nonatomic,strong) NSString *destinationPath;
-@property (nonatomic,assign) BOOL didTerminate;
-@property (nonatomic,copy) RSCCloneProgressBlock progressBlock;
-@property (nonatomic,copy) RSCCloneCompletionBlock completionBlock;
 
 - (id)initWithRepositoryURL:(NSString *)aRepositoryURL;
 - (void)clone;

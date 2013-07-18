@@ -1,6 +1,15 @@
 #import "RSCGitCloner.h"
 #import "RSCSettings.h"
 
+@interface RSCGitCloner()
+
+@property(nonatomic,strong) NSString *branch;
+@property(nonatomic,copy) RSCCloneCompletionBlock completionBlock;
+@property(nonatomic,assign) BOOL didTerminate;
+@property(nonatomic,copy) RSCCloneProgressBlock progressBlock;
+
+@end
+
 @implementation RSCGitCloner
 
 #pragma mark - Lifecycle
