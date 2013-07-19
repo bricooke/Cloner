@@ -29,7 +29,7 @@
     RSCGitCloner *cloner = [[RSCGitCloner alloc] initWithRepositoryURL:repoURL];
    
     RSCCloneProgressBlock cloneProgressBlock = ^(NSInteger progress) {
-        DLog(@"Progress!: %lu", progress);
+        DLog(@"Progress!: %ld", (long)progress);
         
         [self.progressIndicator setIndeterminate:NO];
         [self.progressIndicator setDoubleValue:progress];

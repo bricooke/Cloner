@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5C0E913217981361007045AE /* RSCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E913117981361007045AE /* RSCConstants.m */; };
+		5C5DCFC217997D0B00CFBF2F /* OctoKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C5DCFC117997D0B00CFBF2F /* OctoKit.framework */; };
+		5C5DCFC417997D1B00CFBF2F /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C5DCFC317997D1B00CFBF2F /* ReactiveCocoa.framework */; };
+		5C5DCFC617997D2800CFBF2F /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C5DCFC517997D2800CFBF2F /* Mantle.framework */; };
 		D6278D5A14C05B6E00CD37A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6278D5914C05B6E00CD37A4 /* Cocoa.framework */; };
 		D6278D6414C05B6E00CD37A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6278D6214C05B6E00CD37A4 /* InfoPlist.strings */; };
 		D6278D6614C05B6E00CD37A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6278D6514C05B6E00CD37A4 /* main.m */; };
@@ -22,12 +25,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5CC4464D1799797C0003D057 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D6DFC14714C05ED000CE3F27 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5C5DCFC217997D0B00CFBF2F /* OctoKit.framework in CopyFiles */,
+				5C5DCFC417997D1B00CFBF2F /* ReactiveCocoa.framework in CopyFiles */,
+				5C5DCFC617997D2800CFBF2F /* Mantle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,6 +50,9 @@
 
 /* Begin PBXFileReference section */
 		5C0E913117981361007045AE /* RSCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSCConstants.m; sourceTree = "<group>"; };
+		5C5DCFC117997D0B00CFBF2F /* OctoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OctoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C5DCFC317997D1B00CFBF2F /* ReactiveCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReactiveCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C5DCFC517997D2800CFBF2F /* Mantle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Mantle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6278D5514C05B6E00CD37A4 /* Cloner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cloner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6278D5914C05B6E00CD37A4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D6278D5C14C05B6E00CD37A4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -94,6 +112,9 @@
 		D6278D5814C05B6E00CD37A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C5DCFC517997D2800CFBF2F /* Mantle.framework */,
+				5C5DCFC317997D1B00CFBF2F /* ReactiveCocoa.framework */,
+				5C5DCFC117997D0B00CFBF2F /* OctoKit.framework */,
 				D6278D5914C05B6E00CD37A4 /* Cocoa.framework */,
 				D6278D5B14C05B6E00CD37A4 /* Other Frameworks */,
 			);
@@ -188,6 +209,7 @@
 				D6278D5214C05B6E00CD37A4 /* Frameworks */,
 				D6278D5314C05B6E00CD37A4 /* Resources */,
 				D6DFC14714C05ED000CE3F27 /* CopyFiles */,
+				5CC4464D1799797C0003D057 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -287,12 +309,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -304,7 +328,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -312,9 +336,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				HEADER_SEARCH_PATHS = (
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -322,18 +351,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -341,8 +372,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				HEADER_SEARCH_PATHS = (
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "container:Clone.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ext/OctoKit/OctoKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ext/OctoKit/External/OctoKitDependencies/OctoKitDependencies.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ext/OctoKit/External/ReactiveCocoa/ReactiveCocoaFramework/ReactiveCocoa.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ext/OctoKit/External/Mantle/Mantle.xcodeproj">
+   </FileRef>
+</Workspace>
