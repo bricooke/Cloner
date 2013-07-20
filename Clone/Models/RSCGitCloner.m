@@ -153,7 +153,7 @@
     NSString *user = comps[2];
     NSString *repo = comps[3];
 
-    if ([comps[4] isEqualToString:@"pull"] && [comps[5] integerValue] > 0) {
+    if (comps.count > 4 && [comps[4] isEqualToString:@"pull"] && [comps[5] integerValue] > 0) {
         // this is a pull request
 
         NSString *apiPath = [NSString stringWithFormat:@"/repos/%@/%@/pulls/%@", user, repo, comps[5]];
@@ -190,6 +190,9 @@
             self.branch = comps[5];
         }
 
+        completionBlock();
+    }
+    else {
         completionBlock();
     }
 }
