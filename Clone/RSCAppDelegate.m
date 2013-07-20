@@ -92,7 +92,8 @@
 
 - (IBAction)showPreferences:(id)sender
 {
-    [NSBundle loadNibNamed:@"RSCPreferencesView" owner:self.preferencesController];
+    NSNib *preferencesNib = [[NSNib alloc] initWithNibNamed:@"RSCPreferencesView" bundle:nil];
+    [preferencesNib instantiateWithOwner:self.preferencesController topLevelObjects:nil];
 }
 
 @end
