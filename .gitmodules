@@ -1,0 +1,4 @@
+[submodule "ext/OctoKit"]
+	path = ext/OctoKit
+	url = https://github.com/octokit/octokit.objc.git
+	branch = master
