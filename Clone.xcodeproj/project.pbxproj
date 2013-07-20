@@ -11,6 +11,9 @@
 		5C5DCFC217997D0B00CFBF2F /* OctoKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C5DCFC117997D0B00CFBF2F /* OctoKit.framework */; };
 		5C5DCFC417997D1B00CFBF2F /* ReactiveCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C5DCFC317997D1B00CFBF2F /* ReactiveCocoa.framework */; };
 		5C5DCFC617997D2800CFBF2F /* Mantle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5C5DCFC517997D2800CFBF2F /* Mantle.framework */; };
+		5CC8CEC3179A2BB20046440C /* OctoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DCFC117997D0B00CFBF2F /* OctoKit.framework */; };
+		5CC8CEC4179A2BBB0046440C /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DCFC517997D2800CFBF2F /* Mantle.framework */; };
+		5CC8CEC5179A2BBE0046440C /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5DCFC317997D1B00CFBF2F /* ReactiveCocoa.framework */; };
 		D6278D5A14C05B6E00CD37A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6278D5914C05B6E00CD37A4 /* Cocoa.framework */; };
 		D6278D6414C05B6E00CD37A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D6278D6214C05B6E00CD37A4 /* InfoPlist.strings */; };
 		D6278D6614C05B6E00CD37A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6278D6514C05B6E00CD37A4 /* main.m */; };
@@ -85,6 +88,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6278D5A14C05B6E00CD37A4 /* Cocoa.framework in Frameworks */,
+				5CC8CEC3179A2BB20046440C /* OctoKit.framework in Frameworks */,
+				5CC8CEC4179A2BBB0046440C /* Mantle.framework in Frameworks */,
+				5CC8CEC5179A2BBE0046440C /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

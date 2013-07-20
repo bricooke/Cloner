@@ -1,3 +1,4 @@
+#import <OctoKit/OctoKit.h>
 #import "RSCAppDelegate.h"
 #import "RSCGitCloner.h"
 #import "RSCSettings.h"
@@ -10,8 +11,7 @@
     // bookmarklet handler
 
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(cloneUrl:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-    
-    
+
     // drop on dock icon handler
 
     [NSApp setServicesProvider:self];
