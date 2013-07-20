@@ -35,18 +35,18 @@
         [self.progressIndicator setDoubleValue:progress];
     };
     
-    RSCCloneCompletionBlock cloneCompletionBlock = ^(kRSCGitClonerErrors responseCode) {
+    RSCCloneCompletionBlock cloneCompletionBlock = ^(NSString *repositoryURL, NSString *destinationPath, kRSCGitClonerErrors responseCode) {
         DLog(@"Completion block...");
         [self.progressIndicator setDoubleValue:0.0];
         [self.progressIndicator stopAnimation:self];
         
         if (responseCode == kRSCGitClonerErrorNone) {
-            [[NSWorkspace sharedWorkspace] openFile:cloner.destinationPath withApplication:@"Finder"];
+            [[NSWorkspace sharedWorkspace] openFile:destinationPath withApplication:@"Finder"];
             
             // we no longer have a reason to live. We'll be called upon again by the bookmarklet when needed.
             [NSApp terminate:self];
         } else if (responseCode == kRSCGitClonerErrorCloning) {
-            NSAlert *alert = [NSAlert alertWithMessageText:@"Unable to clone" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"git clone %@ failed.\n\nMake sure you were on a valid github URL and try again.", cloner.repositoryURL];
+            NSAlert *alert = [NSAlert alertWithMessageText:@"Unable to clone" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"git clone %@ failed.\n\nMake sure you were on a valid github URL and try again.", repositoryURL];
             [alert runModal];
             [NSApp terminate:self];
         } else if (responseCode == kRSCGitClonerErrorAuthenticationRequired) {
@@ -55,7 +55,7 @@
             // just nuke the destination path.
             // TODO: Make sure it's empty?
             NSError *error = nil;
-            [[NSFileManager defaultManager] removeItemAtPath:cloner.destinationPath error:&error];
+            [[NSFileManager defaultManager] removeItemAtPath:destinationPath error:&error];
 
             // try again with username and password set in the URL
             // TODO: Ask for the username and password.
